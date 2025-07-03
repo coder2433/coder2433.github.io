@@ -4,11 +4,161 @@
   
     
     <entry>
+      <title>记25_7_3</title>
+      <link href="/undefined/e89fd07f.html"/>
+      <url>/undefined/e89fd07f.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/6866907258cb8da5c88daeb5.png" alt="不背单词" title="不背单词"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假单词打卡 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 英语单词 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ac_801二进制中1的个数</title>
+      <link href="/undefined/d2ef01f2.html"/>
+      <url>/undefined/d2ef01f2.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/6866365958cb8da5c88baa76.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>求出给定数列中每个数的二进制表示中 1 的个数。</p><p>输入输出样例：<br>输入：</p><blockquote><p>5<br>1 2 3 4 5</p></blockquote><p>输出：</p><blockquote><p>1 1 2 1 2</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/803/">ac_801二进制中1的个数</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这题求二进制数就是采用“除基取余”法：</p><ol><li>将一个数除以2得到的余数作二进制数的数值位（低位），循环进行直到这个数除以2商是0，它的余数为最高位，这样的余数组成的数就是这个数的二进制数： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> tmp = q[i], cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(tmp != <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(tmp % <span class="number">2</span> == <span class="number">1</span>) cnt++;</span><br><span class="line">    tmp/=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, cnt);</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> q[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;q[i]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> tmp = q[i], cnt = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(tmp != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(tmp % <span class="number">2</span> == <span class="number">1</span>) cnt++;</span><br><span class="line">            tmp/=<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, cnt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 位运算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ac_2816判断子序列</title>
+      <link href="/undefined/d6b5203a.html"/>
+      <url>/undefined/d6b5203a.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/6866291e58cb8da5c88b8d9b.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>给定 a，b 两个子序列，判断 a 序列是否是 b 序列的子序列，是：Yes，否：No。</p><p>输入输出样例：<br>输入：</p><blockquote><p>3 5<br>1 3 5<br>1 2 3 4 5</p></blockquote><p>输出：</p><blockquote><p>Yes</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/2818/">ac_2816判断子序列</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这题采用双指针的思想，可以参考<a href="https://coder2433.github.io/undefined/5802667c.html">ac_800数组元素的目标和</a>：</p><ol><li>定义 i，j 指针分别指向 a，b 序列的左端点，j一直右移循环遍历，若 a[i] &#x3D;&#x3D; b[j] 则 i++ ，当 i&#x3D;&#x3D;n 时则 a 是 b 的子序列： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(i &lt; n &amp;&amp; j &lt; m)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(a[i] == b[j]) i++;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="type">int</span> a[N], b[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;b[i]);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; n &amp;&amp; j &lt; m)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i] == b[j]) i++;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(i == n) <span class="built_in">printf</span>(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;No&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(n + m)<br>空间复杂度：O(n + m)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 双指针 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ac_800数组元素的目标和</title>
+      <link href="/undefined/5802667c.html"/>
+      <url>/undefined/5802667c.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/68661d5058cb8da5c88b60f9.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>在两个数组中，找出满足 A[i] + B[j] &#x3D; x 的数对（i，j）。</p><p>输入输出样例：<br>输入：</p><blockquote><p>4 5 6<br>1 2 4 7<br>3 4 6 8 9</p></blockquote><p>输出：</p><blockquote><p>1 1</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/802/">ac_800数组元素的目标和</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这题采用双指针的思想，具体：</p><ol><li>定义 i 指针指向 A 数组的左端点，j 指针指向 B 数组的右端点向左移动，由于 A，B 都是递增有序数组，当 A[i] + B[j] &#x3D; x 时输出这个答案并跳出循环，i 指针右移继续寻找： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>, j = m - <span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; A[i] + B[j] &gt; x) j--;</span><br><span class="line">    <span class="keyword">if</span>(A[i] + B[j] == x)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, i, j);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m, x;</span><br><span class="line"><span class="type">int</span> A[N], B[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>, &amp;n, &amp;m ,&amp;x);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;A[i]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;B[i]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>, j = m - <span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; A[i] + B[j] &gt; x) j--;</span><br><span class="line">        <span class="keyword">if</span>(A[i] + B[j] == x)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, i, j);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(n + m)<br>空间复杂度：O(n + m)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 双指针 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ac_799最长连续不重复子序列</title>
+      <link href="/undefined/f12a59b.html"/>
+      <url>/undefined/f12a59b.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/6865f9a358cb8da5c88b00c7.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>给定一个长度为 n 的整数序列，请找出<strong>最长的不包含重复的数的连续区间</strong>，输出它的长度。。</p><p>输入输出样例：<br>输入：</p><blockquote><p>5<br>1 2 2 3 5</p></blockquote><p>输出：</p><blockquote><p>3</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/description/801/">ac_799最长连续不重复子序列</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这题采用双指针的思想，具体：</p><ol><li>采用 map 哈希表存储数列中个元素出现的次数，i 指针往后移动，当 mp[a[i]] &gt; 1 时，表示前面有重复元素，此时将 j 指针后移一位并 mp[a[j]]–;： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line">...</span><br><span class="line">mp[a[i]]++;</span><br><span class="line"><span class="keyword">while</span>(mp[a[i]] &gt; <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    mp[a[j]]--;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>res 记录最长连续不重复子序列： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> a[N], s[N];</span><br><span class="line">map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// s[a[i]]++; 用数组或者哈希表来存储都可以</span></span><br><span class="line">        mp[a[i]]++;</span><br><span class="line">        <span class="keyword">while</span>(mp[a[i]] &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// s[a[j]]--;</span></span><br><span class="line">            mp[a[j]]--;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(nlogn)  map 基于红黑树实现，单次操作时间为 O(logn)，数组存储的话就是 O(n);<br>空间复杂度：O(n)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 双指针 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ac_798差分矩阵</title>
+      <link href="/undefined/c068f886.html"/>
+      <url>/undefined/c068f886.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/6865e78658cb8da5c88ae709.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>在一个给定的 n * m 的矩阵中，将给定的子矩阵中的元素都加上c。</p><p>输入输出样例：<br>输入：</p><blockquote><p>3 4 3<br>1 2 2 1<br>3 2 2 1<br>1 1 1 1<br>1 1 2 2 1<br>1 3 2 3 2<br>3 1 3 4 1</p></blockquote><p>输出：</p><blockquote><p>2 3 4 1<br>4 3 4 1<br>2 2 2 2</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/800/">ac_798差分矩阵</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>差分矩阵的思想可以参考<a href="https://coder2433.github.io/undefined/e56fa37b.html">ac_797差分</a>和<a href="https://coder2433.github.io/undefined/5bb9664b.html">ac_796子矩阵的和</a>。</p><ol><li>构造差分矩阵： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2, <span class="type">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    b[x1][y1] += c; <span class="comment">//原前缀和矩阵（x1,y1）后面的元素都会 + c</span></span><br><span class="line">    b[x2<span class="number">+1</span>][y1] -= c;   <span class="comment">//进行抵消，只在给定区间 + c</span></span><br><span class="line">    b[x1][y2<span class="number">+1</span>] -= c;</span><br><span class="line">    b[x2<span class="number">+1</span>][y2<span class="number">+1</span>] +=c;  <span class="comment">//进行补偿</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>还原成前缀和矩阵： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)</span><br><span class="line">        b[i][j] = b[i<span class="number">-1</span>][j] + b[i][j<span class="number">-1</span>] - b[i<span class="number">-1</span>][j<span class="number">-1</span>] + b[i][j];</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m, q;</span><br><span class="line"><span class="type">const</span>  <span class="type">int</span> N = <span class="number">1010</span>;</span><br><span class="line"><span class="type">int</span> a[N][N], b[N][N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x1, <span class="type">int</span> y1, <span class="type">int</span> x2, <span class="type">int</span> y2, <span class="type">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    b[x1][y1] += c; <span class="comment">//原前缀和矩阵（x1,y1）后面的元素都会 + c</span></span><br><span class="line">    b[x2<span class="number">+1</span>][y1] -= c;   <span class="comment">//进行抵消，只在给定区间 + c</span></span><br><span class="line">    b[x1][y2<span class="number">+1</span>] -= c;</span><br><span class="line">    b[x2<span class="number">+1</span>][y2<span class="number">+1</span>] +=c;  <span class="comment">//进行补偿</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>, &amp;n, &amp;m, &amp;q);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;=m; j++)</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i][j]);</span><br><span class="line">    <span class="comment">//b[i][j] = a[i][j] - a[i-1][j] - a[i][j-1] + a[i-1][j-1] </span></span><br><span class="line">    <span class="comment">//a矩阵是b矩阵的前缀和，b矩阵是a矩阵的差分        </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)</span><br><span class="line">            <span class="built_in">insert</span>(i, j, i, j, a[i][j]);</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">while</span>(q--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x1, y1, x2, y2, c;</span><br><span class="line">        cin &gt;&gt; x1 &gt;&gt; y1 &gt;&gt; x2 &gt;&gt; y2 &gt;&gt; c;</span><br><span class="line">        <span class="built_in">insert</span>(x1, y1, x2, y2, c);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//还原成前缀和矩阵</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++)</span><br><span class="line">            b[i][j] = b[i<span class="number">-1</span>][j] + b[i][j<span class="number">-1</span>] - b[i<span class="number">-1</span>][j<span class="number">-1</span>] + b[i][j];</span><br><span class="line">            </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m; j++) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, b[i][j]);</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(n * m + q)<br>空间复杂度：O(n * m)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前缀和与差分 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记25_7_2</title>
       <link href="/undefined/9f98e0e9.html"/>
       <url>/undefined/9f98e0e9.html</url>
       
-        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>今天总的有效学习时间8个小时</p><p>写的了五道算法题：<br><a href="https://www.acwing.com/problem/content/795/">ac_793高精度乘法</a><br><a href="https://www.acwing.com/problem/content/796/">ac_794高精度除法</a><br><a href="https://www.acwing.com/problem/content/797/">ac_795前缀和</a><br><a href="https://www.acwing.com/problem/content/798/">ac_796子矩阵的和</a><br><a href="https://www.acwing.com/problem/content/799/">ac_797差分</a></p><p>英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/68654a2358cb8da5c88a339d.png" alt="不背单词" title="不背单词"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/68654a2358cb8da5c88a339d.png" alt="不背单词" title="不背单词"></p>]]></content>
       
       
       <categories>
@@ -158,7 +308,7 @@
       <link href="/undefined/691b153.html"/>
       <url>/undefined/691b153.html</url>
       
-        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>今天总的有效学习时间8个小时</p><p>写的了四道算法题：<br><a href="https://www.acwing.com/problem/content/791/">ac_789数的范围</a><br><a href="https://www.acwing.com/problem/content/792/">ac_790数的三次方根</a><br><a href="https://www.acwing.com/problem/content/793/">ac_791高精度加法</a><br><a href="https://www.acwing.com/problem/content/794/">ac_792高精度减法</a></p><p>英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/6863ece958cb8da5c8850cad.jpg" alt="不背单词" title="不背单词"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/6863ece958cb8da5c8850cad.jpg" alt="不背单词" title="不背单词"></p>]]></content>
       
       
       <categories>
@@ -308,7 +458,7 @@
       <link href="/undefined/8c354b39.html"/>
       <url>/undefined/8c354b39.html</url>
       
-        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>今天总的有效学习时间只有4个小时</p><p>写了两道算法题：<br><a href="https://www.acwing.com/problem/content/789/">ac_787归并排序</a><br><a href="https://www.acwing.com/problem/content/description/790/">ac_788逆序对的数量</a></p><p>今天英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/6862aad258cb8da5c880580f.jpg" alt="不背单词" title="不背单词"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>今天英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/6862aad258cb8da5c880580f.jpg" alt="不背单词" title="不背单词"></p>]]></content>
       
       
       <categories>
@@ -439,6 +589,17 @@
     
     
     <entry>
+      <title>友情链接</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>分类</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -453,17 +614,6 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>友情链接</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
