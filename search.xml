@@ -4,6 +4,81 @@
   
     
     <entry>
+      <title>ac_154滑动窗口</title>
+      <link href="/undefined/ea7ea85b.html"/>
+      <url>/undefined/ea7ea85b.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/68692dc358cb8da5c89176ce.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>给定一个长度为 n 的数组，和一个大小为 k 的滑动窗口，滑动窗口从数组的最左端移动到最右端，每次移动一个位置，要求输出每个窗口中的最小值和最大值。</p><p>输入输出样例：<br>输入：</p><blockquote><p>8 3<br>1 3 -1 -3 5 3 6 7</p></blockquote><p>输出：</p><blockquote><p>-1 -3 -3 -3 3 3<br>3 3 5 5 6 7</p></blockquote><p>详情：<a href="https://www.acwing.com/activity/content/problem/content/868/">ac_154滑动窗口</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p><strong>单调队列</strong>：队列中的元素保持单调递增或单调递减：</p><ol><li>对于最小值问题，维护一个<strong>单调递增队列</strong>：队列头部是当前窗口的最小值，新元素入队时，删除队列中所有比它大的元素，以保持队列单调递增。 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> hh = <span class="number">0</span>, tt = <span class="number">-1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//判断队头元素是否还在队列里面，不应该在，则弹出队头元素（保持 k 个元素）</span></span><br><span class="line">    <span class="keyword">if</span> (hh &lt;= tt &amp;&amp; i - k + <span class="number">1</span> &gt; q[hh]) hh++;</span><br><span class="line">    <span class="comment">//队列不为空且队尾元素大于等于 x 时，弹出队尾元素（使队列具有单调性）</span></span><br><span class="line">    <span class="keyword">while</span> (hh &lt;= tt &amp;&amp; a[q[tt]] &gt;= a[i]) tt--;</span><br><span class="line">    <span class="comment">//当前元素下标 i 入队</span></span><br><span class="line">    q[++tt] = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, a[q[hh]]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>对于最大值问题，维护一个<strong>单调递减队列</strong>：队列头部是当前窗口的最大值，新元素入队时，删除队列中所有比它小的元素，以保持队列单调递减。 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">hh = <span class="number">0</span>, tt = <span class="number">-1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (hh &lt;= tt &amp;&amp; i - k + <span class="number">1</span> &gt; q[hh]) hh++;</span><br><span class="line">    <span class="comment">//队列不为空且队尾元素小于等于 x 时，弹出队尾元素（使队列具有单调性）</span></span><br><span class="line">    <span class="keyword">while</span> (hh &lt;= tt &amp;&amp; a[q[tt]] &lt;= a[i]) tt--;</span><br><span class="line">    <span class="comment">//当前元素下标 i 入队</span></span><br><span class="line">    q[++tt] = i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, a[q[hh]]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span>  _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a[N], q[N]; <span class="comment">//数组  单调队列：存储元素下标</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;k);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> hh = <span class="number">0</span>, tt = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//判断队头元素是否还在队列里面，不应该在，则弹出队头元素（保持 k 个元素）</span></span><br><span class="line">        <span class="keyword">if</span> (hh &lt;= tt &amp;&amp; i - k + <span class="number">1</span> &gt; q[hh]) hh++;</span><br><span class="line">        <span class="comment">//队列不为空且队尾元素大于等于 x 时，弹出队尾元素（使队列具有单调性）</span></span><br><span class="line">        <span class="keyword">while</span> (hh &lt;= tt &amp;&amp; a[q[tt]] &gt;= a[i]) tt--;</span><br><span class="line">        <span class="comment">//当前元素下标 i 入队</span></span><br><span class="line">        q[++tt] = i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, a[q[hh]]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    hh = <span class="number">0</span>, tt = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (hh &lt;= tt &amp;&amp; i - k + <span class="number">1</span> &gt; q[hh]) hh++;</span><br><span class="line">        <span class="comment">//队列不为空且队尾元素小于等于 x 时，弹出队尾元素（使队列具有单调性）</span></span><br><span class="line">        <span class="keyword">while</span> (hh &lt;= tt &amp;&amp; a[q[tt]] &lt;= a[i]) tt--;</span><br><span class="line">        <span class="comment">//当前元素下标 i 入队</span></span><br><span class="line">        q[++tt] = i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i &gt;= k - <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, a[q[hh]]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 队列 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ac_830单调栈</title>
+      <link href="/undefined/c956a476.html"/>
+      <url>/undefined/c956a476.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/68692d7c58cb8da5c89176bb.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>给定一个长度为 n 的整数数列，要求输出每个数左边第一个比它小的数，如果不存在则输出 -1。</p><p>输入输出样例：<br>输入：</p><blockquote><p>5<br>3 4 2 7 5</p></blockquote><p>输出：</p><blockquote><p>-1 3 -1 2 2</p></blockquote><p>详情：<a href="https://www.acwing.com/activity/content/problem/content/867/">ac_830单调栈</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>维护一个栈，栈中元素保持单调递增的顺序。遍历数列时，对于当前元素 x，不断弹出栈顶元素直到栈顶元素小于 x 或者栈为空。</p><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span>  _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> stk[N], tt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> x;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">        <span class="comment">//栈不为空且栈顶元素大于等于 x 时，弹出栈顶元素（使栈具有单调性）</span></span><br><span class="line">        <span class="keyword">while</span> (tt &amp;&amp; stk[tt] &gt;= x) tt--;</span><br><span class="line">        <span class="comment">//如果栈空</span></span><br><span class="line">        <span class="keyword">if</span> (!tt) <span class="built_in">printf</span>(<span class="string">&quot;-1 &quot;</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, stk[tt]);</span><br><span class="line">        <span class="comment">// x 入栈</span></span><br><span class="line">        stk[++tt] = x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(n)<br>空间复杂度：O(n)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 栈 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记25_7_5</title>
+      <link href="/undefined/1fc754a.html"/>
+      <url>/undefined/1fc754a.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/6869260058cb8da5c8917542.png" alt="不背单词" title="不背单词"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假单词打卡 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 英语单词 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记25_7_4</title>
       <link href="/undefined/76fb45dc.html"/>
       <url>/undefined/76fb45dc.html</url>
@@ -133,7 +208,7 @@
       <link href="/undefined/f12a59b.html"/>
       <url>/undefined/f12a59b.html</url>
       
-        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/6865f9a358cb8da5c88b00c7.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>给定一个长度为 n 的整数序列，请找出<strong>最长的不包含重复的数的连续区间</strong>，输出它的长度。。</p><p>输入输出样例：<br>输入：</p><blockquote><p>5<br>1 2 2 3 5</p></blockquote><p>输出：</p><blockquote><p>3</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/description/801/">ac_799最长连续不重复子序列</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这题采用双指针的思想，具体：</p><ol><li>采用 map 哈希表存储数列中个元素出现的次数，i 指针往后移动，当 mp[a[i]] &gt; 1 时，表示前面有重复元素，此时将 j 指针后移一位并 mp[a[j]]–;： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line">...</span><br><span class="line">mp[a[i]]++;</span><br><span class="line"><span class="keyword">while</span>(mp[a[i]] &gt; <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    mp[a[j]]--;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>res 记录最长连续不重复子序列： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> a[N], s[N];</span><br><span class="line">map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// s[a[i]]++; 用数组或者哈希表来存储都可以</span></span><br><span class="line">        mp[a[i]]++;</span><br><span class="line">        <span class="keyword">while</span>(mp[a[i]] &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// s[a[j]]--;</span></span><br><span class="line">            mp[a[j]]--;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(nlogn)  map 基于红黑树实现，单次操作时间为 O(logn)，数组存储的话就是 O(n);<br>空间复杂度：O(n)</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/6865f9a358cb8da5c88b00c7.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>给定一个长度为 n 的整数序列，请找出<strong>最长的不包含重复的数的连续区间</strong>，输出它的长度。</p><p>输入输出样例：<br>输入：</p><blockquote><p>5<br>1 2 2 3 5</p></blockquote><p>输出：</p><blockquote><p>3</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/description/801/">ac_799最长连续不重复子序列</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>这题采用双指针的思想，具体：</p><ol><li>采用 map 哈希表存储数列中个元素出现的次数，i 指针往后移动，当 mp[a[i]] &gt; 1 时，表示前面有重复元素，此时将 j 指针后移一位并 mp[a[j]]– ： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line">...</span><br><span class="line">mp[a[i]]++;</span><br><span class="line"><span class="keyword">while</span>(mp[a[i]] &gt; <span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    mp[a[j]]--;</span><br><span class="line">    j++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>res 记录最长连续不重复子序列： <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br></pre></td></tr></table></figure></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> a[N], s[N];</span><br><span class="line">map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; mp;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// s[a[i]]++; 用数组或者哈希表来存储都可以</span></span><br><span class="line">        mp[a[i]]++;</span><br><span class="line">        <span class="keyword">while</span>(mp[a[i]] &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// s[a[j]]--;</span></span><br><span class="line">            mp[a[j]]--;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        res = <span class="built_in">max</span>(res, i - j + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(nlogn)  map 基于红黑树实现，单次操作时间为 O(logn)，数组存储的话就是 O(n);<br>空间复杂度：O(n)</p>]]></content>
       
       
       <categories>
@@ -614,9 +689,9 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -625,9 +700,9 @@
     
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
