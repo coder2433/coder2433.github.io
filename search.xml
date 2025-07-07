@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>记25_7_7</title>
+      <link href="/undefined/eff21466.html"/>
+      <url>/undefined/eff21466.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>今天背单词途中忘记退出应用了，导致时间多算大概 280 min了（不是有意的啊啊啊~~~）所以 +60 min 就到 340 min了，也算打卡了吧（下次注意呜呜呜）<br><img src="https://pic1.imgdb.cn/item/686bb4e358cb8da5c894e8db.png" alt="不背单词" title="不背单词"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假单词打卡 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 英语单词 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>ac_835Trie字典树</title>
+      <link href="/undefined/82a00979.html"/>
+      <url>/undefined/82a00979.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p><img src="https://pic1.imgdb.cn/item/686b35ec58cb8da5c892e9ee.png" alt="原题" title="原题"></p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>给定一个字符串集合，需要支持两种操作（需要高效存储和查找字符串，否则会超时）：</p><ol><li>插入字符串（操作符为 I）</li><li>查询某个字符串出现的次数（操作符为 Q）</li></ol><p>输入输出样例：<br>输入：</p><blockquote><p>5<br>I abc<br>Q abc<br>Q ab<br>I ab<br>Q ab</p></blockquote><p>输出：</p><blockquote><p>1<br>0<br>1</p></blockquote><p>详情：<a href="https://www.acwing.com/problem/content/837/">ac_835Trie字典树</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>本题使用<strong>Trie 树（字典树）<strong>来高效处理字符串的插入和查询操作。Trie 树的核心思想是利用</strong>字符串的公共前缀</strong>来减少查询时间，从而达到插入和查询的时间复杂度均为 <strong>O (m)</strong>（m 为字符串长度）。</p><ol><li><p><strong>数据结构设计</strong>：可以看下面代码注释</p> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Trie（字典树）: 高效存储和查找字符串集合的数据结构</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> son[N][<span class="number">26</span>]; <span class="comment">//存储从节点 P 沿着 i 这条边走到的子节点</span></span><br><span class="line"><span class="type">int</span> cnt[N]; <span class="comment">//存储以节点 p 结尾的单词插入次数</span></span><br><span class="line"><span class="type">int</span> idx;    <span class="comment">//给每个节点编号（节点数）</span></span><br><span class="line"><span class="type">char</span> str[N];    <span class="comment">//处理的字符串</span></span><br></pre></td></tr></table></figure></li><li><p><strong>插入操作</strong>：从根节点开始，遍历字符串的每个字符；将字符转换为对应的索引（0~25）；如果当前节点没有对应子节点，创建新节点；遍历结束后，在最后一个节点的 cnt 上加 1，表示该字符串出现次数 + 1。</p> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">char</span>* str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> p = <span class="number">0</span>; <span class="comment">// 从根节点（编号0）开始</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; str[i]; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u = str[i] - <span class="string">&#x27;a&#x27;</span>;  <span class="comment">// 将字符映射为0-25的索引</span></span><br><span class="line">        <span class="keyword">if</span> (!son[p][u]) son[p][u] = ++idx; <span class="comment">// 如果路径不存在，创建新节点</span></span><br><span class="line">        p = son[p][u]; <span class="comment">// 移动到下一个节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    cnt[p]++; <span class="comment">// 标记字符串结尾，计数器加1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p><strong>查询操作</strong>：从根节点开始遍历字符串；如果中途路径不存在，说明字符串不在集合中，返回 0 ；遍历结束后，返回最后一个节点的 cnt 值，表示该字符串出现的次数。</p> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">char</span>* str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> p = <span class="number">0</span>; <span class="comment">// 从根节点开始</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; str[i]; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u = str[i] - <span class="string">&#x27;a&#x27;</span>; <span class="comment">// 字符映射为索引</span></span><br><span class="line">        <span class="keyword">if</span> (!son[p][u]) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 路径不存在，返回0</span></span><br><span class="line">        p = son[p][u]; <span class="comment">// 移动到下一个节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt[p]; <span class="comment">// 返回该节点的计数器值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>如果大家还是觉得上面的题解比较难懂，不妨看看这个视频：<a href="https://www.bilibili.com/video/BV1yA4y1Z74t?spm_id_from=333.788.videopod.sections&vd_source=dae1ec590e342c3d3aa838fa43db2803">Trie字典树</a></p></li></ol><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span>  _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">// Trie（字典树）: 高效存储和查找字符串集合的数据结构</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> son[N][<span class="number">26</span>]; <span class="comment">//存储从节点 P 沿着 i 这条边走到的子节点</span></span><br><span class="line"><span class="type">int</span> cnt[N]; <span class="comment">//存储以节点 p 结尾的单词插入次数</span></span><br><span class="line"><span class="type">int</span> idx;    <span class="comment">//给每个节点编号（节点数）</span></span><br><span class="line"><span class="type">char</span> str[N];    <span class="comment">//处理的字符串</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">char</span>* str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> p = <span class="number">0</span>; <span class="comment">// 从根节点（编号0）开始</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; str[i]; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u = str[i] - <span class="string">&#x27;a&#x27;</span>;  <span class="comment">// 将字符映射为0-25的索引</span></span><br><span class="line">        <span class="keyword">if</span> (!son[p][u]) son[p][u] = ++idx; <span class="comment">// 如果路径不存在，创建新节点</span></span><br><span class="line">        p = son[p][u]; <span class="comment">// 移动到下一个节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    cnt[p]++; <span class="comment">// 标记字符串结尾，计数器加1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">query</span><span class="params">(<span class="type">char</span>* str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> p = <span class="number">0</span>; <span class="comment">// 从根节点开始</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; str[i]; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> u = str[i] - <span class="string">&#x27;a&#x27;</span>; <span class="comment">// 字符映射为索引</span></span><br><span class="line">        <span class="keyword">if</span> (!son[p][u]) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 路径不存在，返回0</span></span><br><span class="line">        p = son[p][u]; <span class="comment">// 移动到下一个节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cnt[p]; <span class="comment">// 返回该节点的计数器值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">char</span> op[<span class="number">2</span>];</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%s %s&quot;</span>, op, str);</span><br><span class="line">        <span class="keyword">if</span> (*op == <span class="string">&#x27;I&#x27;</span>) <span class="built_in">insert</span>(str);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, <span class="built_in">query</span>(str));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="时间和空间复杂度"><a href="#时间和空间复杂度" class="headerlink" title="时间和空间复杂度"></a>时间和空间复杂度</h1><p>时间复杂度：O(m)，其中 m 为字符串长度<br>空间复杂度：O (N * 26)，N 为节点总数</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 字典树 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记25_7_6</title>
       <link href="/undefined/98f524f0.html"/>
       <url>/undefined/98f524f0.html</url>
@@ -714,6 +764,17 @@
     
     
     <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>友情链接</title>
       <link href="/link/index.html"/>
       <url>/link/index.html</url>
@@ -728,17 +789,6 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
