@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>cf_246D</title>
+      <link href="/undefined/c23154c1.html"/>
+      <url>/undefined/c23154c1.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上次集训赛（周三）刷到一个特别有意思的题，关于图论的。当时没刷多少图论的题目，所以图论算法这块一直都挺畏惧的hhh~~，但这个题目让我重新认识到有的图论原来并不难，只是披着羊皮的狼，这个题目我是用 map 映射做的，今天想起才来写个关于它的题解，题目链接放在后面。</p><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>本题要求找出图中邻居颜色多样性最大的顶点颜色。具体来说，对于颜色 k，需统计所有属于颜色 k 的顶点的邻居颜色集合的大小（去重），最终输出该值最大的颜色（若有多个，选数值最小的）。</p><p>输入输出样例：<br>输入：</p><blockquote><p>6 6<br>1 1 2 3 5 8<br>1 2<br>3 2<br>1 4<br>4 3<br>4 5<br>4 6</p></blockquote><p>输出：</p><blockquote><p>3</p></blockquote><p>详情：<a href="https://codeforces.com/problemset/problem/246/D">cf_246D</a></p><h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><ol><li><p><strong>输入处理与颜色去重</strong>：用数组 s 存储所有唯一颜色，用数组 flagc 标记颜色是否已存在，确保数组 s 中颜色唯一。</p> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> idx = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    cin &gt;&gt; c[i];</span><br><span class="line">    <span class="keyword">if</span> (!flagc[c[i]]) <span class="comment">//去重</span></span><br><span class="line">        s[++idx] = c[i], flagc[c[i]] = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p><strong>统计邻居颜色多样性</strong>：遍历每条边，若边两端顶点颜色不同，用 map&lt;pair&lt;int, int&gt;, bool&gt; 记录颜色对 (c[x], c[y])，避免重复统计。每遇到新的颜色对，对应颜色的多样性计数数组 cntc 加 1</p> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> (m--) &#123;</span><br><span class="line">    <span class="type">int</span> x, y;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (c[x] == c[y]) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!flag[&#123;c[x], c[y]&#125;]) cntc[c[x]]++, flag[&#123;c[x], c[y]&#125;] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!flag[&#123;c[y], c[x]&#125;]) cntc[c[y]]++, flag[&#123;c[y], c[x]&#125;] = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p><strong>寻找最优颜色</strong>：对唯一颜色数组 s 排序，遍历 s，找到 cntc 最大的颜色，若有多个，选排序后第一个出现的。</p> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sort</span>(s + <span class="number">1</span>, s + <span class="number">1</span> + idx);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> max_cnt = <span class="number">0</span>, ans = s[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= idx; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cntc[s[i]] &gt; max_cnt) &#123;</span><br><span class="line">        <span class="comment">// 找到最大多样性的颜色</span></span><br><span class="line">        max_cnt = cntc[s[i]], ans = s[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><h1 id="AC代码附上"><a href="#AC代码附上" class="headerlink" title="AC代码附上"></a>AC代码附上</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> n, m;</span><br><span class="line"><span class="type">int</span> c[<span class="number">100010</span>], s[<span class="number">100010</span>], cntc[<span class="number">100010</span>];</span><br><span class="line"><span class="type">bool</span> flagc[<span class="number">100010</span>];</span><br><span class="line"></span><br><span class="line">map&lt;pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt;, <span class="type">bool</span>&gt; flag;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        cin &gt;&gt; c[i];</span><br><span class="line">        <span class="keyword">if</span> (!flagc[c[i]]) <span class="comment">//去重</span></span><br><span class="line">            s[++idx] = c[i], flagc[c[i]] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="type">int</span> x, y;</span><br><span class="line">        cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (c[x] == c[y]) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!flag[&#123;c[x], c[y]&#125;]) cntc[c[x]]++, flag[&#123;c[x], c[y]&#125;] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!flag[&#123;c[y], c[x]&#125;]) cntc[c[y]]++, flag[&#123;c[y], c[x]&#125;] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">sort</span>(s + <span class="number">1</span>, s + <span class="number">1</span> + idx);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> max_cnt = <span class="number">0</span>, ans = s[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= idx; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cntc[s[i]] &gt; max_cnt) &#123;</span><br><span class="line">            <span class="comment">// 找到最大多样性的颜色</span></span><br><span class="line">            max_cnt = cntc[s[i]], ans = s[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假acm集训 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图论 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记25_7_10</title>
+      <link href="/undefined/6bf4ede.html"/>
+      <url>/undefined/6bf4ede.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>英语背了一个小时单词<br><img src="https://pic1.imgdb.cn/item/686fafa758cb8da5c89a9a8e.png" alt="不背单词" title="不背单词"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 25暑假单词打卡 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 英语单词 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记25_7_9</title>
       <link href="/undefined/84a3961.html"/>
       <url>/undefined/84a3961.html</url>
@@ -825,9 +875,9 @@
     
     
     <entry>
-      <title>友情链接</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
+      <title>标签</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -836,9 +886,9 @@
     
     
     <entry>
-      <title>标签</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>友情链接</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
