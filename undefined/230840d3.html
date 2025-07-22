@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>luogu_P1433 | ZW_Blog</title><meta name="author" content="ZW"><meta name="copyright" content="ZW"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="题目大意&amp;链接有 n 块奶酪，小老鼠从 (0, 0) 点出发，要吃掉所有奶酪，求跑过的最少距离。输入输出：输入为奶酪数量 n 以及每块奶酪的横、纵坐标 xi, yi；输出为保留两位小数的最少跑动距离。 输入输出样例：输入：  41 11 -1-1 1-1 -1  输出：  7.41  详情：luogu_P1433 解题思路状态压缩与记忆化搜索：  状态表示：使用 pos 表示当前所在奶酪的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="luogu_P1433">
+<meta property="og:url" content="https://coder2433.github.io/undefined/230840d3.html">
+<meta property="og:site_name" content="ZW_Blog">
+<meta property="og:description" content="题目大意&amp;链接有 n 块奶酪，小老鼠从 (0, 0) 点出发，要吃掉所有奶酪，求跑过的最少距离。输入输出：输入为奶酪数量 n 以及每块奶酪的横、纵坐标 xi, yi；输出为保留两位小数的最少跑动距离。 输入输出样例：输入：  41 11 -1-1 1-1 -1  输出：  7.41  详情：luogu_P1433 解题思路状态压缩与记忆化搜索：  状态表示：使用 pos 表示当前所在奶酪的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.imgdb.cn/item/6878c91d58cb8da5c8bebd2f.png">
+<meta property="article:published_time" content="2025-07-22T13:52:09.575Z">
+<meta property="article:modified_time" content="2025-07-22T14:01:36.670Z">
+<meta property="article:author" content="ZW">
+<meta property="article:tag" content="记忆化搜索 状态压缩 dfs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.imgdb.cn/item/6878c91d58cb8da5c8bebd2f.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "luogu_P1433",
+  "url": "https://coder2433.github.io/undefined/230840d3.html",
+  "image": "https://pic1.imgdb.cn/item/6878c91d58cb8da5c8bebd2f.png",
+  "datePublished": "2025-07-22T13:52:09.575Z",
+  "dateModified": "2025-07-22T14:01:36.670Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "ZW",
+      "url": "https://coder2433.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://coder2433.github.io/undefined/230840d3.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'luogu_P1433',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://pic1.imgdb.cn/item/6878c91d58cb8da5c8bebd2f.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">ZW_Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">luogu_P1433</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">luogu_P1433</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-22T13:52:09.575Z" title="发表于 2025-07-22 21:52:09">2025-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-22T14:01:36.670Z" title="更新于 2025-07-22 22:01:36">2025-07-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/25%E6%9A%91%E5%81%87acm%E9%9B%86%E8%AE%AD/">25暑假acm集训</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="题目大意-链接"><a href="#题目大意-链接" class="headerlink" title="题目大意&amp;链接"></a>题目大意&amp;链接</h1><p>有 n 块奶酪，小老鼠从 (0, 0) 点出发，要吃掉所有奶酪，求跑过的最少距离。<br>输入输出：输入为奶酪数量 n 以及每块奶酪的横、纵坐标 xi, yi；输出为保留两位小数的最少跑动距离。</p>
+<p>输入输出样例：<br>输入：</p>
+<blockquote>
+<p>4<br>1 1<br>1 -1<br>-1 1<br>-1 -1</p>
+</blockquote>
+<p>输出：</p>
+<blockquote>
+<p>7.41</p>
+</blockquote>
+<p>详情：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1433">luogu_P1433</a></p>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p><strong>状态压缩与记忆化搜索：</strong></p>
+<ol>
+<li><p><strong>状态表示</strong>：使用 pos 表示当前所在奶酪的索引，deep 表示已吃奶酪的数量，len 表示已跑过的距离，path 是一个整数，通过位运算（状态压缩）记录已经访问过的奶酪（每一位代表一块奶酪是否被访问 ）。</p>
+</li>
+<li><p><strong>记忆化</strong>：dp[pos][path] 存储从当前状态（在 pos 号奶酪位置、已访问 path 对应奶酪集合 ）出发，吃完剩余奶酪所需的最短距离增量。避免重复计算相同状态，大幅减少递归次数。</p>
+</li>
+</ol>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 要吃掉所有奶酪，求跑过的最少距离</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">20</span>;</span><br><span class="line"><span class="type">int</span> n; <span class="comment">// 奶酪数量</span></span><br><span class="line"><span class="comment">// 存储每块奶酪的坐标，a[i][0]为横坐标，a[i][1]为纵坐标</span></span><br><span class="line"><span class="type">double</span> a[N][<span class="number">2</span>];</span><br><span class="line"><span class="comment">// 标记奶酪是否被访问过，用于回溯</span></span><br><span class="line"><span class="type">bool</span> st[N];</span><br><span class="line"><span class="comment">// 记忆化数组，dp[pos][path]存储对应状态的最短距离增量</span></span><br><span class="line"><span class="comment">// 第 i 位为 1：表示第 i 块奶酪已经被访问过（吃过）。</span></span><br><span class="line"><span class="comment">// 第 i 位为 0：表示第 i 块奶酪未被访问过。</span></span><br><span class="line"><span class="type">double</span> dp[N][<span class="number">1</span> &lt;&lt; <span class="number">16</span>]; </span><br><span class="line"></span><br><span class="line"><span class="comment">// pos：当前所在奶酪的索引</span></span><br><span class="line"><span class="comment">// deep：已吃奶酪数量</span></span><br><span class="line"><span class="comment">// len：已跑过的距离</span></span><br><span class="line"><span class="comment">// path：哪些奶酪被吃</span></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> pos, <span class="type">int</span> deep, <span class="type">double</span> len, <span class="type">int</span> path)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">double</span> ans = <span class="number">1e9</span> + <span class="number">10</span>;</span><br><span class="line">    <span class="comment">// 递归终止条件：已吃完所有奶酪，返回已跑距离</span></span><br><span class="line">    <span class="keyword">if</span>(deep == n) <span class="keyword">return</span> len;</span><br><span class="line">    <span class="comment">// 若该状态已计算过，直接返回存储的最短距离</span></span><br><span class="line">    <span class="comment">//（当前已跑距离 + 后续最短增量 ）</span></span><br><span class="line">    <span class="keyword">if</span>(dp[pos][path]) <span class="keyword">return</span> len + dp[pos][path];</span><br><span class="line">   </span><br><span class="line">    <span class="comment">// 遍历所有奶酪</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 跳过已访问过的奶酪</span></span><br><span class="line">        <span class="keyword">if</span>(st[i]) <span class="keyword">continue</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 标记当前奶酪为已访问</span></span><br><span class="line">        st[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 计算当前奶酪与所在奶酪的欧几里得距离</span></span><br><span class="line">        <span class="type">double</span> r1 = a[i][<span class="number">0</span>] - a[pos][<span class="number">0</span>];</span><br><span class="line">        <span class="type">double</span> r2 = a[i][<span class="number">1</span>] - a[pos][<span class="number">1</span>];</span><br><span class="line">        <span class="type">double</span> r = <span class="built_in">sqrt</span>(r1 * r1 + r2 * r2);</span><br><span class="line">        <span class="comment">// 递归访问下一块奶酪，更新最短距离</span></span><br><span class="line">        <span class="comment">// path | (1 &lt;&lt; i) 将 path 中第 i 位的状态改为 1</span></span><br><span class="line">        ans = <span class="built_in">min</span>(ans, <span class="built_in">dfs</span>(i, deep + <span class="number">1</span>, len + r, path | (<span class="number">1</span> &lt;&lt; i)));</span><br><span class="line">        <span class="comment">// 回溯，取消标记</span></span><br><span class="line">        st[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 存储当前状态下，吃完剩余所有奶酪所需的最短距离</span></span><br><span class="line">    dp[pos][path] = ans - len;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) cin &gt;&gt; a[i][<span class="number">0</span>] &gt;&gt; a[i][<span class="number">1</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%.2lf&quot;</span>, <span class="built_in">dfs</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://coder2433.github.io">ZW</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://coder2433.github.io/undefined/230840d3.html">https://coder2433.github.io/undefined/230840d3.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://coder2433.github.io" target="_blank">ZW_Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2-%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9-dfs/">记忆化搜索 状态压缩 dfs</a></div><div class="post-share"><div class="social-share" data-image="https://pic1.imgdb.cn/item/6878c91d58cb8da5c8bebd2f.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/undefined/76d5ba51.html" title="记25_7_15"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">记25_7_15</div></div><div class="info-2"><div class="info-item-1">总结英语背了一个小时单词 </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://pic1.imgdb.cn/item/6878c91d58cb8da5c8bebd2f.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">ZW</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">41</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F-%E9%93%BE%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text">题目大意&amp;链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">完整代码</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/undefined/230840d3.html" title="luogu_P1433">luogu_P1433</a><time datetime="2025-07-22T13:52:09.575Z" title="发表于 2025-07-22 21:52:09">2025-07-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/undefined/76d5ba51.html" title="记25_7_15">记25_7_15</a><time datetime="2025-07-15T10:50:13.882Z" title="发表于 2025-07-15 18:50:13">2025-07-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/undefined/1d28ac7.html" title="记25_7_14">记25_7_14</a><time datetime="2025-07-14T12:14:30.170Z" title="发表于 2025-07-14 20:14:30">2025-07-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/undefined/9fb61f64.html" title="记25_7_13">记25_7_13</a><time datetime="2025-07-13T10:16:33.638Z" title="发表于 2025-07-13 18:16:33">2025-07-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/undefined/e8b12ff2.html" title="记25_7_12">记25_7_12</a><time datetime="2025-07-12T11:08:15.565Z" title="发表于 2025-07-12 19:08:15">2025-07-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By ZW</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
